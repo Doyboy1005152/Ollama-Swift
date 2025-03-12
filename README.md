@@ -49,14 +49,24 @@ import Llama
 @State private var response: String = ""
 
 Task {
-    await askLlama("Translate this sentence to French", $response)
+    await askLlama("Translate this sentence to French", $response, "Make sure to use formal language.")
 }
+```
+
+## File Hierarchy
+When setting up this package, your directory should be structured as follows:
+```
+Llama/
+│── Sources/
+│   ├── Llama/
+│   │   ├── Llama.swift
+│── Package.swift
 ```
 
 ### Customizing Instructions
 The `askLlama` function supports an optional third parameter, `otherInfo`, which allows you to provide custom instructions to modify the AI's behavior. For example:
 ```swift
-await askLlama("Summarize this article", $response, "Limit the response to 3 sentences.")
+await askLlama("Summarize this article", $response)
 ```
 This lets you tailor the AI's response style or constraints as needed.
 
