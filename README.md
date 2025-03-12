@@ -49,7 +49,7 @@ import Llama
 @State private var response: String = ""
 
 Task {
-    await askLlama("Translate this sentence to French", $response, "Make sure to use formal language.")
+    await askLlama("Translate this sentence to French", $response)
 }
 ```
 
@@ -66,7 +66,7 @@ Llama/
 ### Customizing Instructions
 The `askLlama` function supports an optional third parameter, `otherInfo`, which allows you to provide custom instructions to modify the AI's behavior. For example:
 ```swift
-await askLlama("Summarize this article", $response)
+await askLlama("Summarize this article", $response, "Make the summary formal")
 ```
 This lets you tailor the AI's response style or constraints as needed.
 
