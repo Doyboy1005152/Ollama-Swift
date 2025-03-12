@@ -1,34 +1,21 @@
-import Foundation
-import SwiftUI
+// swift-tools-version: 6.0
+// The swift-tools-version declares the minimum version of Swift required to build this package.
 
-@available(macOS 10.15, *)
-public func askLlama(_ text: String, _ translation: Binding<String>, _ otherInfo: String = "") async {
-    let command = "echo 'You are a helpful assistant who follows these instructions: \"\(otherInfo)\". Do not include any formatting (besides newlines). Make sure yout sentence(s) maintain clarity. They are saying \"\(text)\"' | /usr/local/bin/ollama run \(modelName)"
-    let modelName = "mistral"
-    let process = Process()
-    process.launchPath = "/bin/bash"
-    process.arguments = ["-c", command]
+import PackageDescription
 
-    let pipe = Pipe()
-    process.standardOutput = pipe
+let package = Package(
+    name: "Llama",
+    products: [
+        // Products define the executables and libraries a package produces, making them visible to other packages.
+        .library(
+            name: "Llama",
+            targets: ["Llama"]),
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products from dependencies.
+        .target(
+            name: "Llama"),
 
-    if #available(macOS 10.15, *) {
-        await withCheckedContinuation { continuation in
-            DispatchQueue.global(qos: .background).async {
-                process.launch()
-                process.waitUntilExit()
-                
-                let data = pipe.fileHandleForReading.readDataToEndOfFile()
-                if let output = String(data: data, encoding: .utf8) {
-                    let translationResult = output.trimmingCharacters(in: .whitespacesAndNewlines)
-                    DispatchQueue.main.async {
-                        translation.wrappedValue = translationResult
-                    }
-                }
-                continuation.resume()
-            }
-        }
-    } else {
-        // Fallback on earlier versions
-    }
-}
+    ]
+)
