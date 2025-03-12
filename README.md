@@ -7,6 +7,7 @@ Llama is a Swift package that provides an easy way to interact with the [Ollama]
 - Asynchronous text processing using `Process` in Swift.
 - Supports macOS 10.15+.
 - Simple integration with SwiftUI using `Binding<String>`.
+- Customizable model and instruction parameters.
 
 ## Installation
 
@@ -76,9 +77,16 @@ import Llama
 @State private var response: String = ""
 
 Task {
-    await askLlama("Translate this sentence to French", $response)
+    await askLlama("Translate this sentence to French", $response, "Make sure to use formal language.")
 }
 ```
+
+### Customizing Instructions
+The `askLlama` function supports an optional third parameter, `otherInfo`, which allows you to provide custom instructions to modify the AI's behavior. For example:
+```swift
+await askLlama("Summarize this article", $response, "Limit the response to 3 sentences.")
+```
+This lets you tailor the AI's response style or constraints as needed.
 
 ## License
 This project is licensed under the MIT License.
