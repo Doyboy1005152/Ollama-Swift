@@ -33,43 +33,15 @@ If you want to use another model, replace `mistral` with your preferred model na
 ollama pull <model_name>
 ```
 
-### Adding Llama to Your Swift Package
-To use Llama in your Swift project, add it as a dependency in `Package.swift`:
+### Adding Llama to Your Swift Project
+To use Llama as a local package dependency in your project:
 
-```swift
-// swift-tools-version: 5.5
-import PackageDescription
+1. Go to **File** → **Add Package Dependencies** in Xcode.
+2. Click **Add Local**.
+3. Select the folder containing the Llama package.
+4. Click **Add Package**.
 
-let package = Package(
-    name: "YourProject",
-    dependencies: [
-        .package(url: "https://github.com/yourusername/Llama.git", from: "1.0.0")
-    ],
-    targets: [
-        .target(
-            name: "YourProject",
-            dependencies: ["Llama"]
-        )
-    ]
-)
-```
-
-Then, in your Swift file:
-```swift
-import Llama
-```
-
-## File Structure
-When setting up this package, your directory should be structured as follows:
-```
-Llama/
-│── Sources/
-│   ├── Llama/
-│   │   ├── Llama.swift
-│── Package.swift
-```
-
-## Usage
+Then, in your Swift file, import `Llama` and use it as needed:
 ```swift
 import SwiftUI
 import Llama
@@ -77,7 +49,7 @@ import Llama
 @State private var response: String = ""
 
 Task {
-    await askLlama("Translate this sentence to French", $response, "Make sure to use formal language.")
+    await askLlama("Translate this sentence to French", $response)
 }
 ```
 
