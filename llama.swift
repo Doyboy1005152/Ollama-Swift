@@ -3,8 +3,8 @@ import SwiftUI
 
 @available(macOS 10.15, *)
 public func askLlama(_ text: String, _ translation: Binding<String>, _ otherInfo: String = "") async {
-    let command = "echo 'You are a helpful assistant who follows these instructions: \"\(otherInfo)\". Do not include any formatting (besides newlines). Make sure yout sentence(s) maintain clarity. They are saying \"\(text)\"' | /usr/local/bin/ollama run mistral"
-    
+    let command = "echo 'You are a helpful assistant who follows these instructions: \"\(otherInfo)\". Do not include any formatting (besides newlines). Make sure yout sentence(s) maintain clarity. They are saying \"\(text)\"' | /usr/local/bin/ollama run \(modelName)"
+    let modelName = "mistral"
     let process = Process()
     process.launchPath = "/bin/bash"
     process.arguments = ["-c", command]
